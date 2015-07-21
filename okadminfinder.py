@@ -8,13 +8,10 @@ os.chdir(os.path.dirname(__file__))
 from Classes import OKadminFinderClass
 
 try:
-    from colorama import Fore, Back, Style
+    from colorama import Fore
 
     # Get main class object
     OKadminFinder = OKadminFinderClass.OKadminFinder()
-
-    # Get credits :)
-    OKadminFinder.credits()
 
     # Get site and verify it
     site = OKadminFinder.getSite()

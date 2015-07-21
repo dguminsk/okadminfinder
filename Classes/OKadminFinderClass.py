@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import requests
-from colorama import Fore, Back
+from colorama import Fore
 
 class OKadminFinder():
     """
@@ -10,23 +10,6 @@ class OKadminFinder():
 
     # Create headers information to requests
     header = {'user-agent': 'OKadminFinder/1.0'}
-
-    def credits(self):
-        """
-        Credits to util
-        """
-
-        print Back.BLACK + Fore.GREEN + '''
- _____ _   __          _           _      ______ _           _
-|  _  | | / /         | |         (_)     |  ___(_)         | |
-| | | | |/ /  __ _  __| |_ __ ___  _ _ __ | |_   _ _ __   __| | ___ _ __
-| | | |    \ / _` |/ _` | '_ ` _ \| | '_ \|  _| | | '_ \ / _` |/ _ \ '__|
-\ \_/ / |\  \ (_| | (_| | | | | | | | | | | |   | | | | | (_| |  __/ |
- \___/\_| \_/\__,_|\__,_|_| |_| |_|_|_| |_\_|   |_|_| |_|\__,_|\___|_| version 1.0
-                                          easy way to find admin panel
-                                               special for Pentest Box
-                                                              o.koleda
-        '''
 
     def getSite(self):
         """
@@ -60,9 +43,8 @@ class OKadminFinder():
         adminFound = 0
         totalScan = 0
 
-        # Open files with urls of admin panel. fSub - for subdomains
+        # Open files with urls of admin panel.
         f = open('LinkFiles/links.txt', 'r')
-        fSub = open('LinkFiles/link_subdomain.txt', 'r')
 
         print(Fore.WHITE + '\t [+] Scanning ' + site + '...\n\n')
 
@@ -75,37 +57,23 @@ class OKadminFinder():
             if not sub_link:
                 break
 
-            # Create a full target url
-            reqLink = 'http://' + site + '/' + sub_link
-            print (Fore.YELLOW + '\t [#] Checking ' + reqLink)
-            totalScan += 1
+            # Checking for domain or subdomain
+            if sub_link[0:3] == '%s/':
+                # Create a full target url
+                reqLink = 'http://' + sub_link % site
 
-            try:
-                # Try to get request to target url without errors
-                req = requests.get(reqLink, headers=self.header)
-                req.raise_for_status()
-            except requests.exceptions.RequestException as e:
-                continue
             else:
-                # If we don't have errors, we think that this admin panel
-                adminFound += 1
-                print Fore.GREEN + '%s %s' % ('\n\n>>>' + reqLink, 'Admin page found!')
+                # Checking for www. and kill it
+                if site[0:4] == 'www.':
+                    site = site.replace('www.', '')
 
-                # Waiting some key, before restart cheking
-                raw_input(Fore.WHITE + 'Press enter to continue scanning.\n')
+                    # Create a full target url for subdomains with www
+                    reqLink = 'http://www.' + sub_link % site
 
-        # Check all links for subdomain
-        while True:
+                else:
+                    # Create a full target url for subdomains without www
+                    reqLink = 'http://' + sub_link % site
 
-            # Magic kill of endspace symbol (from line in link file)
-            sub_link = fSub.readline().replace('\n', '')
-
-            if not sub_link:
-                break
-
-            # Create a full target url
-            site = site.replace('www.', '')
-            reqLink = 'http://' + sub_link + '.' + site
             print (Fore.YELLOW + '\t [#] Checking ' + reqLink)
             totalScan += 1
 
