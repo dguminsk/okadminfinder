@@ -1,8 +1,8 @@
 # OKadminFinder
 Lite util to find admin panel of website
 
-Created for Pentest Box, but can use as alone util
+Created for <a href="https://pentestbox.com/">Pentest Box</a>, but can use as alone util
 
-Based on python 2.x
+Based on python 2.7.x
 
-Usage library Requests
+Require library <a href="https://github.com/kennethreitz/requests/">Requests</a>
