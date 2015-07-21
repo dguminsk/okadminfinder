@@ -1,5 +1,4 @@
-# findadmin
-Admin panel finder
+# OkAdminFinder
+Lite util to find admin panel of website
 Based on python 2.x
-
-Need library Requests
+Usage library Requests
