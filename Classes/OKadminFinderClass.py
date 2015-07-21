@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-os.chdir(os.path.dirname(__file__))
+import requests
+from colorama import Fore, Back
 
 class OKadminFinder():
 
@@ -17,6 +17,7 @@ class OKadminFinder():
 \ \_/ / |\  \ (_| | (_| | | | | | | | | | | |   | | | | | (_| |  __/ |
  \___/\_| \_/\__,_|\__,_|_| |_| |_|_|_| |_\_|   |_|_| |_|\__,_|\___|_| version 1.0
                                           easy way to find admin panel
+                                               special for Pentest Box
                                                               o.koleda
         '''
 
@@ -33,21 +34,13 @@ class OKadminFinder():
         print Fore.GREEN + '\nSite %s is stable\n' % site
         return site
 
-    def getCode(self):
-        print Fore.WHITE + 'Enter site source code:'
-        print '1 PHP'
-        print '2 ASP'
-        print '\nPress 1 and "Enter key" for Select PHP\n'
-        code = input('> ')
-        return str(code)
-
-    def parsingLinks(self, site, webType='1'):
+    def parsingLinks(self, site):
 
         adminFound = 0
         totalScan = 0
 
-        f = open('link_%s.txt' % (webType), 'r')
-        fSub = open('link_subdomain.txt', 'r')
+        f = open('LinkFiles/links.txt', 'r')
+        fSub = open('LinkFiles/link_subdomain.txt', 'r')
         print(Fore.WHITE + '\t [+] Scanning ' + site + '...\n\n')
 
         # check domain
@@ -91,20 +84,3 @@ class OKadminFinder():
         print Fore.WHITE + str(adminFound), ' Admin pages found'
         print Fore.WHITE + str(totalScan), ' total pages scanned'
         raw_input(Fore.GREEN + '[/] Scanning over; Press Enter to Exit')
-
-try:
-    import requests
-    from colorama import Fore, Back, Style
-    okAdminFinder = OKadminFinder()
-    okAdminFinder.credits()
-    site = okAdminFinder.getSite()
-    code = okAdminFinder.getCode()
-    okAdminFinder.parsingLinks(site, code)
-    print Fore.WHITE
-except (KeyboardInterrupt, SystemExit):
-    print Fore.RED + '\n\t[!] Session cancelled'
-    print Fore.WHITE
-except:
-    print Fore.RED + '\n\t[!] Session Cancelled; Unknown error'
-    print Fore.WHITE
-
