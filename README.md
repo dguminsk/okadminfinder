@@ -1,0 +1,2 @@
+# findadmin
+Admin panel finder
