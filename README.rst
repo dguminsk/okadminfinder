@@ -1,15 +1,16 @@
 OKadminFinder: Easy way to find admin panel of site
-=========================
-Lite util to find admin panel of website
+===================================================
 
-Created for <a href="https://pentestbox.com/">Pentest Box</a>, but can use as alone util
+OKadminFinder is an Apache2 Licensed util, written in Python 2.7.*, for human who want find admin panel of site.
+In this time find tool for this work too hard. You can find .exe utils, but it dangerous.
 
-Based on python 2.7.x
+OKadminFinder created for <a href="https://pentestbox.com/">Pentest Box</a>, but it can use as alone util
 
-Require library <a href="https://github.com/kennethreitz/requests/">Requests</a>
+If you use it without Pentest Box, you should install library <a href="https://github.com/kennethreitz/requests/">Requests</a> for Python
 
+Used
+----
 To use - just run okadminfinder.py
-
 
 If you wanna use that util in <a href="https://pentestbox.com/">Pentest Box</a>, place this files to directory PentestBox Directory\bin\WebApplications\okadminfinder
 After that, you must add custom alias.
@@ -19,6 +20,8 @@ After that, you must add custom alias.
 2) Write to this file: okadminfinder=python "%pentestbox_ROOT%\bin\WebApplications\okadminfinder\okadminfinder.py" $*
 
 
+Extensions
+----------
 If you know potential admin panels, you can addin their to LinkFile/links.txt
 
 All links use %s variable. %s = our site
@@ -26,11 +29,10 @@ All links use %s variable. %s = our site
 Example: site = test.com -> %s/admin -> test.com/admin
 
 
-TODO:
-1) Config file with network params, like proxy, headers etc.
+In Future
+---------
+- Config file with network params, like proxy, headers etc.
+- Adding some params like time-outs
+- Multithreading work, for faster work. Adding more potential admin panel pages
+- Console work with params, like: okadminfinder -u --proxy --threads
 
-2) Adding some params like time-outs
-
-3) Multithreading work, for faster work. Adding more potential admin panel pages
-
-4) Console work with params, like: okadminfinder -u --proxy --threads
