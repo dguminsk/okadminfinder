@@ -6,24 +6,30 @@ In this time find tool for this work too hard. You can find .exe utils, but it d
 
 OKadminFinder created for `Pentest Box <https://pentestbox.com/>`_, but it can use as alone util
 
-If you use it without Pentest Box, you should install library `Requests<https://github.com/kennethreitz/requests/>`_ for Python
+If you use it without Pentest Box, you should install library `Requests <https://github.com/kennethreitz/requests/>`_ for Python
 
 Used
 ----
 in Python:
 
 .. code-block:: python
+
     >>> okadminfinder.py
+    ...
 
 in Bash:
 
 .. code-block:: bash
+
     $ python okadminfinder.py
+    ...
 
 in Pentest Box (if customaliase are):
 
 .. code-block:: cmd
+
     $ okadminfinder
+    ...
 
 If you wanna use that util in `Pentest Box <https://pentestbox.com/>`_, place this files to directory PentestBox Directory\bin\WebApplications\okadminfinder
 After that, you must add custom alias.
