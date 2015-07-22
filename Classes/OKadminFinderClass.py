@@ -2,101 +2,76 @@
 # -*- coding: utf-8 -*-
 
 import requests
-from colorama import Fore
 
 class OKadminFinder():
     """
     Main class for work OKadminFinder
     """
 
-    # Create headers information to requests
-    header = {'user-agent': 'OKadminFinder/1.1.1'}
+    def __init__(self):
+        # Create headers information to requests
+        self.header = {'user-agent': 'OKadminFinder/1.2.1'}
 
-    def getSite(self):
+
+    def checkUrl(self, url):
         """
-        Function for getting target site and checking for valid url
-        :return: site without http://
+        Check target url for HTTPerrors. If Error -> False, If Not Errors-> True
+        :param url: string
+        :return: boolean
         """
 
-        # Getting site from input
-        site = raw_input(Fore.WHITE + 'Enter Site Name \n(ex : example.com, www.example.com, '
-                         'http://example.com or http://www.example.com ): ')
         try:
-            # Strip http://
-            site = site.replace('http://', '')
-
             # Get connection to target and raise exception if have errors
-            req = requests.get('http://' + site, headers=self.header)
+            req = requests.get('http://' + url, headers=self.header)
             req.raise_for_status()
+            return True
 
-        except requests.RequestException as e:
-            print Fore.RED + 'Something wrong with url'
-            exit()
+        except requests.RequestException:
+            return False
 
-        print Fore.GREEN + '\nSite %s is stable\n' % site
-        return site
-
-    def checkingLinks(self, site):
+    @staticmethod
+    def getUrls():
         """
-        Checking requests from potential admin panel urls
-        :param site: target url (without http://)
+        Create array from file with potential admin panels
+        :return: array
         """
-
-        # Variables for counting
-        adminFound = 0
-        totalScan = 0
 
         # Open files with urls of admin panel.
         f = open('LinkFile/links.txt', 'r')
+        links = []
 
-        print(Fore.WHITE + '\t [+] Scanning ' + site + '...\n\n')
+        # Appending to array all lines from file.
+        for line in f.readlines():
 
-        # Check all links for url
-        while True:
+            # Strip \n symbols
+            links.append(line.replace('\n', ''))
+        return links
 
-            # Magic kill of endspace symbol (from line in link file)
-            sub_link = f.readline().replace('\n', '')
+    @staticmethod
+    def createReqLink(site, subLink):
+        """
+        Create full link to potential admin panel site+sublink or subdomen+site
+        :param site: string
+        :param subLink: string
+        :return: string
+        """
 
-            if not sub_link:
-                break
+        # This checking for domain or subdomain target url
+        if subLink[0:3] == '%s/':
+            # Create a full target url
+            reqLink = subLink % site
 
-            # Checking for domain or subdomain
-            if sub_link[0:3] == '%s/':
-                # Create a full target url
-                reqLink = 'http://' + sub_link % site
+        else:
+            # Checking for www. and kill it
+            if site[0:4] == 'www.':
+                site = site.replace('www.', '')
+
+                # Create a full target url for subdomains with www
+                reqLink = 'www.' + subLink % site
 
             else:
-                # Checking for www. and kill it
-                if site[0:4] == 'www.':
-                    site = site.replace('www.', '')
+                # Create a full target url for subdomains without www
+                reqLink = subLink % site
 
-                    # Create a full target url for subdomains with www
-                    reqLink = 'http://www.' + sub_link % site
-
-                else:
-                    # Create a full target url for subdomains without www
-                    reqLink = 'http://' + sub_link % site
-
-            print (Fore.YELLOW + '\t [#] Checking ' + reqLink)
-            totalScan += 1
-
-            try:
-                # Try to get request to target url without errors
-                req = requests.get(reqLink, headers=self.header)
-                req.raise_for_status()
-            except requests.exceptions.RequestException as e:
-                continue
-            else:
-                # If we don't have errors, we think that this admin panel
-                adminFound += 1
-                print Fore.GREEN + '%s %s' % ('\n\n>>>' + reqLink, 'Admin page found!')
-
-                # Waiting some key, before restart cheking
-                raw_input(Fore.WHITE + 'Press enter to continue scanning.\n')
-
-        # Print all information about checking and waiting some key before exit from util
-        print(Fore.GREEN + '\n\nCompleted \n')
-        print Fore.WHITE + str(adminFound), ' Admin pages found'
-        print Fore.WHITE + str(totalScan), ' total pages scanned'
-
-        raw_input(Fore.GREEN + '[/] Scanning over; Press Enter to Exit')
+        # Replace http:// for next use in function checkUrl
+        return reqLink
