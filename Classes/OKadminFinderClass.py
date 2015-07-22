@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import requests
 from colorama import Fore
 
@@ -9,7 +10,7 @@ class OKadminFinder():
     """
 
     # Create headers information to requests
-    header = {'user-agent': 'OKadminFinder/1.0'}
+    header = {'user-agent': 'OKadminFinder/1.1.1'}
 
     def getSite(self):
         """
@@ -27,9 +28,11 @@ class OKadminFinder():
             # Get connection to target and raise exception if have errors
             req = requests.get('http://' + site, headers=self.header)
             req.raise_for_status()
-        except requests.exceptions.RequestException as e:
+
+        except requests.RequestException as e:
             print Fore.RED + 'Something wrong with url'
             exit()
+
         print Fore.GREEN + '\nSite %s is stable\n' % site
         return site
 
@@ -44,7 +47,7 @@ class OKadminFinder():
         totalScan = 0
 
         # Open files with urls of admin panel.
-        f = open('LinkFiles/links.txt', 'r')
+        f = open('LinkFile/links.txt', 'r')
 
         print(Fore.WHITE + '\t [+] Scanning ' + site + '...\n\n')
 
@@ -95,4 +98,5 @@ class OKadminFinder():
         print(Fore.GREEN + '\n\nCompleted \n')
         print Fore.WHITE + str(adminFound), ' Admin pages found'
         print Fore.WHITE + str(totalScan), ' total pages scanned'
+
         raw_input(Fore.GREEN + '[/] Scanning over; Press Enter to Exit')

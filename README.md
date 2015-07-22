@@ -6,3 +6,5 @@ Created for <a href="https://pentestbox.com/">Pentest Box</a>, but can use as al
 Based on python 2.7.x
 
 Require library <a href="https://github.com/kennethreitz/requests/">Requests</a>
+
+To use - just run okadminfinder.py

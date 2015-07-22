@@ -19,17 +19,18 @@ try:
     # Start finding admin panel
     OKadminFinder.checkingLinks(site)
 
-    # This magic for PentestBox. This is return normal color style of console
+    # This magic for Pentest Box. This is return normal color style of console
     print Fore.WHITE
 
 except (KeyboardInterrupt, SystemExit):
     print Fore.RED + '\n\t[!] Session cancelled'
 
-    # This magic for PentestBox. This is return normal color style of console
+    # This magic for Pentest Box. This is return normal color style of console
     print Fore.WHITE
+
 except:
     print Fore.RED + '\n\t[!] Session Cancelled; Unknown error'
 
-    # This magic for PentestBox. This is return normal color style of console
+    # This magic for Pentest Box. This is return normal color style of console
     print Fore.WHITE
 
