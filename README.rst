@@ -28,7 +28,7 @@ in Pentest Box (if customaliase are):
 
 .. code-block:: cmd
 
-    $ okadminfinder
+    C:/PentestBoxDir okadminfinder
     ...
 
 If you wanna use that util in `Pentest Box <https://pentestbox.com/>`_, place this files to directory PentestBox Directory\bin\WebApplications\okadminfinder
