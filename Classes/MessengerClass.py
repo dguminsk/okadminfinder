@@ -23,7 +23,7 @@ class Messenger():
         print self.style[color] + message
 
 
-    def writeInput(self, message, color='white'):
+    def writeRawInput(self, message, color='white'):
         """
         Create raw_input with color text. Colors - white, red, green, yellow
         :param message: string
@@ -32,3 +32,32 @@ class Messenger():
         """
 
         return raw_input(self.style[color] + message)
+
+    def writeInput(self, message, color='white'):
+        """
+        Create input with color text. Colors - white, red, green, yellow
+        :param message: string
+        :param color: string
+        :return: input
+        """
+        try:
+            return input(self.style[color] + message)
+        except:
+            self.writeMessage('Invalid value. Try again', 'red')
+            return self.writeInput(self.style[color] + message)
+
+    def writeRawInputWithYesNo(self, message, color='white'):
+        """
+        Create input with color text. Colors - white, red, green, yellow
+        :param message: string
+        :param color: string
+        :return: input
+        """
+        valueOfInput = self.writeRawInput('%s [Y][n]' % message, color)
+        if valueOfInput == '' or valueOfInput == 'y' or valueOfInput == 'Y':
+            return True
+        elif valueOfInput == 'n' or valueOfInput == 'N':
+            return False
+        else:
+            self.writeMessage('Invalid value %s. Try again' % valueOfInput, 'red')
+            return self.writeRawInputWithYesNo(message, color)

@@ -14,7 +14,7 @@ try:
     messenger = MessengerClass.Messenger()
 
 except():
-    print '\n\t[!] Session Cancelled; Something wrong with import modules'
+    exit('\n\t[!] Session Cancelled; Something wrong with import modules')
 
 try:
     # Get credits and print it
@@ -23,8 +23,13 @@ try:
     # Get main class object
     OKadminFinder = OKadminFinderClass.OKadminFinder()
 
+    # Additional params
+    if not messenger.writeRawInputWithYesNo('Do you want use default params?'):
+        timeout = messenger.writeInput('Change timeout. Please write value in seconds: ')
+        OKadminFinder.timeout = timeout
+
     # Get site
-    site = messenger.writeInput('Enter Site Name \n(example : example.com or www.example.com')
+    site = messenger.writeRawInput('Enter Site Name \n(example : example.com or www.example.com ')
 
     # Verify target url
     if OKadminFinder.checkUrl(site):
@@ -53,7 +58,7 @@ try:
             messenger.writeMessage('%s %s' % ('\n\n>>> http://' + reqLink, 'Admin page found!'), 'green')
 
             # Stopped process? and waiting for input for continue
-            messenger.writeInput('Press enter to continue scanning.\n')
+            messenger.writeRawInput('Press enter to continue scanning.\n')
 
         # If HTTPerrors continue testing other links
         else:
@@ -63,7 +68,7 @@ try:
     messenger.writeMessage('\n\nCompleted \n', 'green')
     messenger.writeMessage(str(adminCount) + ' Admin pages found', 'white')
     messenger.writeMessage(str(totalCount) + ' total pages scanned', 'white')
-    messenger.writeInput('[/] Scanning over; Press Enter to Exit', 'green')
+    messenger.writeRawInput('[/] Scanning over; Press Enter to Exit', 'green')
 
     # This magic for Pentest Box. This is return normal color style of console
     messenger.writeMessage('','white')

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
+import time
 
 class OKadminFinder():
     """
@@ -10,8 +11,8 @@ class OKadminFinder():
 
     def __init__(self):
         # Create headers information to requests
-        self.header = {'user-agent': 'OKadminFinder/1.2.1'}
-
+        self.header = {'user-agent': 'OKadminFinder/1.3.2'}
+        self.timeout = 0
 
     def checkUrl(self, url):
         """
@@ -21,6 +22,10 @@ class OKadminFinder():
         """
 
         try:
+
+            # Timeout before check url
+            time.sleep(self.timeout)
+
             # Get connection to target and raise exception if have errors
             req = requests.get('http://' + url, headers=self.header)
             req.raise_for_status()
