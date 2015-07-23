@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__version__ = '1.4.0'
+__version__ = '1.4.1'
 __author__ = 'o.koleda'
 __license__ = 'Apache 2.0'
 
@@ -14,4 +14,4 @@ def getCredits():
     \____/_/ |_\__,_/\__,_/_/ /_/ /_/_/_/ /_/_/   /_/_/ /_/\__,_/\___/_/ license %s
                                                special for Pentest Box
                                                              %s
-    ''' % (__version__, __license__, __author__,)
+    ''' % (__version__, __license__, __author__,), __version__

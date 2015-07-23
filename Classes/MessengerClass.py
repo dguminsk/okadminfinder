@@ -30,8 +30,11 @@ class Messenger():
         :param color: string
         :return: raw_input
         """
-
-        return raw_input(self.style[color] + message)
+        try:
+            return raw_input(self.style[color] + message)
+        except:
+            self.writeMessage('Invalid value. Try again', 'red')
+            return self.writeRawInput(self.style[color] + message)
 
     def writeInput(self, message, color='white'):
         """
@@ -48,7 +51,7 @@ class Messenger():
 
     def writeRawInputWithYesNo(self, message, color='white'):
         """
-        Create input with color text. Colors - white, red, green, yellow
+        Create input yes/no with Yes default and color text. Colors - white, red, green, yellow
         :param message: string
         :param color: string
         :return: input

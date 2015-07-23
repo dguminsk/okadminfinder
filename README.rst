@@ -50,6 +50,7 @@ Example: site = test.com -> %s/admin -> test.com/admin
 
 In Future
 ---------
+#. Add checking of phpinfo and phpmyadmin panel
 #. Config file with network params, like proxy, headers etc.
 #. Multithreading work, for faster work. Adding more potential admin panel pages
 #. Console work with params, like: okadminfinder -u --proxy --threads

@@ -18,10 +18,13 @@ except():
 
 try:
     # Get credits and print it
-    messenger.writeMessage(Credits.getCredits(), 'green')
+    messenger.writeMessage(Credits.getCredits()[0], 'green')
 
     # Get main class object
     OKadminFinder = OKadminFinderClass.OKadminFinder()
+
+    # Add header from credits
+    OKadminFinder.header = {'user-agent': 'OKadminFinder/%s' % Credits.getCredits()[1]}
 
     # Additional params
     if not messenger.writeRawInputWithYesNo('Do you want use default params?'):
@@ -39,7 +42,7 @@ try:
         exit(SystemExit)
 
     # Get links for checking
-    urls = OKadminFinder.getUrls()
+    urls = OKadminFinder.getUrls('LinkFile/adminpanellinks.txt')
 
     # Counters for total links, and admin panel find
     totalCount = len(urls)

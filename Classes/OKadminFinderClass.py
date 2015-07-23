@@ -11,7 +11,7 @@ class OKadminFinder():
 
     def __init__(self):
         # Create headers information to requests
-        self.header = {'user-agent': 'OKadminFinder/1.4.0'}
+        self.header = {}
         self.timeout = 0
 
     def checkUrl(self, url):
@@ -35,14 +35,14 @@ class OKadminFinder():
             return False
 
     @staticmethod
-    def getUrls():
+    def getUrls(filePath):
         """
         Create array from file with potential admin panels
         :return: array
         """
 
         # Open files with urls of admin panel.
-        f = open('LinkFile/links.txt', 'r')
+        f = open(filePath, 'r')
         links = []
 
         # Appending to array all lines from file.
