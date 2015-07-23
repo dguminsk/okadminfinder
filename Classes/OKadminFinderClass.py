@@ -11,7 +11,7 @@ class OKadminFinder():
 
     def __init__(self):
         # Create headers information to requests
-        self.header = {'user-agent': 'OKadminFinder/1.3.2'}
+        self.header = {'user-agent': 'OKadminFinder/1.4.0'}
         self.timeout = 0
 
     def checkUrl(self, url):
